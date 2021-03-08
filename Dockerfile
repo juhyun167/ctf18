@@ -24,7 +24,7 @@ RUN mkdir /root/temp/
 WORKDIR /root/temp/
 
 # pip configuration
-RUN wget https://bootstrap.pypa.io/2.7/get-pip.py
+RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 RUN python get-pip.py
 RUN python3 -m pip install --upgrade pip
 
