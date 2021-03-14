@@ -3,14 +3,9 @@ FROM ubuntu:18.04
 # Locale configuration
 ENV LC_CTYPE C.UTF-8
 
-# Change APT servers to mirror.kakao.com
-RUN sed -i "s/kr.archive.ubuntu/mirror.kakao/g" /etc/apt/sources.list
-RUN sed -i "s/archive.ubuntu/mirror.kakao/g" /etc/apt/sources.list
-RUN sed -i "s/security.ubuntu/mirror.kakao/g" /etc/apt/sources.list
-
 # APT update and upgrade
 RUN apt update
-RUN apt upgrade
+RUN apt upgrade -y
 
 # Fundamental packages
 RUN apt install gcc make git net-tools curl wget -y
@@ -36,7 +31,7 @@ WORKDIR /root/temp/gdb-10.1/
 RUN mkdir build
 WORKDIR /root/temp/gdb-10.1/build
 RUN ../configure --prefix=/usr --with-system-readline --with-python=/usr/bin/python3 --enable-tui
-RUN make -j 4
+RUN make
 RUN make install
 
 # Clone dotfiles repository
@@ -114,6 +109,7 @@ RUN /root/.fzf/install
 # Install pwndbg
 RUN git clone https://github.com/pwndbg/pwndbg /root/pwndbg/
 WORKDIR /root/pwndbg/
+RUN sed -i s/sudo[[:space:]]//g /root/pwndbg/setup.sh
 RUN /root/pwndbg/setup.sh
 
 # Reinstall gdb with "built from source" version
