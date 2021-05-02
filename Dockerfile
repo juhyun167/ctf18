@@ -121,15 +121,16 @@ RUN make install
 
 # pwntools confiruation
 # For Python 2.7
-RUN python -m pip install pwntools
+RUN python -m pip install pwntools==4.3.1
 
 # For Python 3+
-RUN python3 -m pip install pwntools
+RUN python3 -m pip install pwntools==4.3.1
 
 # End of pwntools configuration
 
 # Install rp-lin-x64
-RUN wget "https://github.com/0vercl0k/rp/releases/download/v1/rp-lin-x64" -o /usr/local/bin/rp-lin-x64
+RUN wget https://github.com/0vercl0k/rp/releases/download/v1/rp-lin-x64
+RUN mv rp-lin-x64 /usr/local/bin/
 RUN chmod +x /usr/local/bin/rp-lin-x64
 
 # Install one_gadget
